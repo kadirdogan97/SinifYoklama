@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         loginResponse.observe(this, Observer {
             progress_bar.hide()
             toast(it.success.toString())
-            intent.putExtra("LoginUser", it)
+            intent.putExtra("LoginUser", it.user)
             if(it.success!!){
                 startActivity(intent)
             }
