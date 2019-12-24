@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.kadirdogan97.sinifyoklama.AuthViewModel" />
+            type="com.kadirdogan97.sinifyoklama.viewmodels.AuthViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginActivity">
+        tools:context=".activities.LoginActivity">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -87,6 +87,11 @@
                     android:onClick="@{viewmodel::onLoginButtonClick}"
                     android:text="Giriş Yap"
                     android:textAllCaps="false" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{viewmodel.macAddress}"></TextView>
 
             </LinearLayout>
 

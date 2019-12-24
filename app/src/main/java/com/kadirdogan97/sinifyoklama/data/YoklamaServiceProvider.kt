@@ -1,5 +1,6 @@
-package com.kadirdogan97.sinifyoklama
+package com.kadirdogan97.sinifyoklama.data
 
+import com.kadirdogan97.sinifyoklama.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

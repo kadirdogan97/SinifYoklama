@@ -1,4 +1,4 @@
-package com.kadirdogan97.sinifyoklama
+package com.kadirdogan97.sinifyoklama.data
 
 import java.io.Serializable
 

@@ -1,7 +1,9 @@
-package com.kadirdogan97.sinifyoklama
+package com.kadirdogan97.sinifyoklama.viewmodels
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.kadirdogan97.sinifyoklama.AuthListener
+import com.kadirdogan97.sinifyoklama.data.LoginRepository
 
 class AuthViewModel: ViewModel() {
     var username: String? = null
@@ -14,7 +16,8 @@ class AuthViewModel: ViewModel() {
             authListener?.onFailure("Invalid Student No or Password")
             return
         }
-        val loginResponse = LoginRepository().userLogin(username!!, password!!)
+        val loginResponse = LoginRepository()
+            .userLogin(username!!, password!!)
         authListener?.onSuccess(loginResponse)
     }
 }

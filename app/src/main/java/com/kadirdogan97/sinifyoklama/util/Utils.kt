@@ -1,6 +1,7 @@
-package com.kadirdogan97.yoklasinifi.util
+package com.kadirdogan97.sinifyoklama.util
 
 import android.content.Context
+import android.net.wifi.WifiManager
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast

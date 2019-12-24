@@ -1,6 +1,5 @@
-package com.kadirdogan97.sinifyoklama
+package com.kadirdogan97.sinifyoklama.data
 
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
