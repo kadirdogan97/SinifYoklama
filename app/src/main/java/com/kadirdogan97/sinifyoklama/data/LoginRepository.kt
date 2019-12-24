@@ -16,7 +16,7 @@ class LoginRepository {
         yoklamaServiceProvider.yoklamaService.userLogin(username,password)
             .enqueue(object: Callback<Login>{
                 override fun onFailure(call: Call<Login>, t: Throwable) {
-                    val tempLogin = Login(false, t.message)
+                    val tempLogin = Login(false, t.message, Student(1,"1","1","1","1","1"))
                     loginResponse.value = tempLogin
                 }
 

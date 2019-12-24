@@ -4,5 +4,6 @@ import java.io.Serializable
 
 data class Login (
     val success : Boolean?,
-    val message : String?
+    val message : String?,
+    val user : Student?
 ): Serializable
