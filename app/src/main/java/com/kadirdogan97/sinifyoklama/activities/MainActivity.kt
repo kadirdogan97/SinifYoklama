@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kadirdogan97.sinifyoklama.LessonListener
+import com.kadirdogan97.sinifyoklama.LessonsAdapter
 import com.kadirdogan97.sinifyoklama.R
 import com.kadirdogan97.sinifyoklama.databinding.ActivityMainBinding
 import com.kadirdogan97.sinifyoklama.network.model.Lesson
@@ -25,18 +26,24 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class MainActivity : AppCompatActivity(), LessonListener {
 
+    private lateinit var binding: ActivityMainBinding
+
+    private val lessonAdapter = LessonsAdapter()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(this,
             R.layout.activity_main
         )
         val viewModel = ViewModelProviders.of(this).get(LessonsViewModel::class.java)
         binding.viewmodel = viewModel
+        binding.recyclerView.adapter = lessonAdapter
         viewModel.lessonListener = this
         var myLogin = intent.getSerializableExtra("LoginUser") as Student
         viewModel.fetchLessonsData(myLogin.bolum_id);
         toast(getMacAdress())
+
     }
 
     override fun onStarted() {
@@ -46,7 +53,7 @@ class MainActivity : AppCompatActivity(), LessonListener {
 
     override fun onSuccess(loginResponse: LiveData<LessonService>) {
         loginResponse.observe(this, Observer {
-            toast(it.toString())
+            lessonAdapter.setLessonList(it.lesson!!)
         })
     }
 
