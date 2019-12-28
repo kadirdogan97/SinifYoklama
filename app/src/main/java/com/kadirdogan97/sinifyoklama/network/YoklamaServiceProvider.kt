@@ -1,4 +1,4 @@
-package com.kadirdogan97.sinifyoklama.data
+package com.kadirdogan97.sinifyoklama.network
 
 import com.kadirdogan97.sinifyoklama.BuildConfig
 import retrofit2.Retrofit
@@ -9,7 +9,6 @@ class YoklamaServiceProvider {
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.SERVER_URL)
         .build()
-
 
     val yoklamaService = retrofit.create<YoklamaService>(YoklamaService::class.java)
 }

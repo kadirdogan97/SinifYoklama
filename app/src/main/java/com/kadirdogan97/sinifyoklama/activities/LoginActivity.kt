@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.kadirdogan97.sinifyoklama.AuthListener
 import com.kadirdogan97.sinifyoklama.viewmodels.AuthViewModel
 import com.kadirdogan97.sinifyoklama.R
-import com.kadirdogan97.sinifyoklama.data.Login
+import com.kadirdogan97.sinifyoklama.network.model.Login
 import com.kadirdogan97.sinifyoklama.databinding.ActivityLoginBinding
 import com.kadirdogan97.sinifyoklama.util.hide
 import com.kadirdogan97.sinifyoklama.util.show
@@ -28,6 +28,8 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         val viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
         viewModel.authListener = this
+        viewModel.username = "151307051";
+        viewModel.password = "k1";
     }
 
     override fun onStarted() {

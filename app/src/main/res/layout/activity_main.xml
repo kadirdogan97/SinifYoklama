@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="viewmodel"
+            type="com.kadirdogan97.sinifyoklama.viewmodels.LessonsViewModel" />
 
     </data>
 
@@ -12,11 +15,10 @@
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+        <FrameLayout
+            android:id="@+id/frag_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </androidx.viewpager.widget.ViewPager>
+            android:layout_height="match_parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

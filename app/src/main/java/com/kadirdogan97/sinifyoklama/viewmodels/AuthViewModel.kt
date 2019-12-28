@@ -3,7 +3,7 @@ package com.kadirdogan97.sinifyoklama.viewmodels
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.kadirdogan97.sinifyoklama.AuthListener
-import com.kadirdogan97.sinifyoklama.data.LoginRepository
+import com.kadirdogan97.sinifyoklama.network.LoginRepository
 
 class AuthViewModel: ViewModel() {
     var username: String? = null
