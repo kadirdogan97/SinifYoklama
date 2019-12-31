@@ -6,25 +6,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kadirdogan97.sinifyoklama.util.toast
 import android.net.wifi.WifiManager
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kadirdogan97.sinifyoklama.LessonListener
-import com.kadirdogan97.sinifyoklama.LessonsAdapter
+import com.kadirdogan97.sinifyoklama.adapters.LessonsAdapter
 import com.kadirdogan97.sinifyoklama.R
 import com.kadirdogan97.sinifyoklama.databinding.ActivityMainBinding
 import com.kadirdogan97.sinifyoklama.network.model.Lesson
 import com.kadirdogan97.sinifyoklama.network.model.LessonService
 import com.kadirdogan97.sinifyoklama.network.model.Student
-import com.kadirdogan97.sinifyoklama.util.hide
-import com.kadirdogan97.sinifyoklama.util.show
-import com.kadirdogan97.sinifyoklama.viewmodels.AuthViewModel
 import com.kadirdogan97.sinifyoklama.viewmodels.LessonsViewModel
-import kotlinx.android.synthetic.main.activity_login.*
 
 
-class MainActivity : AppCompatActivity(), LessonListener {
+class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemClickListener{
+
+
 
     private lateinit var binding: ActivityMainBinding
 
@@ -53,8 +52,14 @@ class MainActivity : AppCompatActivity(), LessonListener {
 
     override fun onSuccess(loginResponse: LiveData<LessonService>) {
         loginResponse.observe(this, Observer {
+            lessonAdapter.setOnItemClickListener(this)
             lessonAdapter.setLessonList(it.lesson!!)
         })
+    }
+    override fun onItemClick(lesson: Lesson) {
+        val intent = Intent(this@MainActivity, LessonDetailActivity::class.java)
+        intent.putExtra("lesson",lesson)
+        startActivity(intent)
     }
 
     override fun onFailure(message: String?) {

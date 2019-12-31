@@ -22,13 +22,14 @@ class LessonsRepository {
             .enqueue(object: Callback<LessonService>{
                 override fun onFailure(call: Call<LessonService>, t: Throwable) {
                     val tempLesson = ArrayList<Lesson>()
-                    tempLesson.add(Lesson(1, "1", "1", "1", "1", "1", "1", "1"))
+                    tempLesson.add(Lesson(1, "1", "1", "1", "1", "1", "1", "1",null))
                     val tempLessonService = LessonService(true,tempLesson)
                     lessonResponse.value = tempLessonService
-                    Log.d("1", "fail: "+t.message)
+                    Log.d("1", "test: "+t.message)
                 }
 
                 override fun onResponse(call: Call<LessonService>, response: Response<LessonService>) {
+                    Log.d("1", "test: "+response.body())
                     lessonResponse.value = response.body()
 
                 }

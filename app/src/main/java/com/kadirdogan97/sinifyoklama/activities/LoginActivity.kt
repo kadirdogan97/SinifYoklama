@@ -28,8 +28,8 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         val viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
         viewModel.authListener = this
-        viewModel.username = "151307051";
-        viewModel.password = "k1";
+        viewModel.username = "151307051"
+        viewModel.password = "k1"
     }
 
     override fun onStarted() {

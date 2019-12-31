@@ -10,5 +10,6 @@ data class Lesson (
     val ders_gunu : String?,
     val baslangic_saati : String?,
     val bitis_saati : String?,
-    val yoklama_aktif : String?
+    val yoklama_aktif : String?,
+    val barkod : String?
 ): Serializable

@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface YoklamaService {
-    @GET("indexs.php")
+    @GET("index.php")
     fun userLogin(
         @Query("username") username: String,
         @Query("password") password: String
