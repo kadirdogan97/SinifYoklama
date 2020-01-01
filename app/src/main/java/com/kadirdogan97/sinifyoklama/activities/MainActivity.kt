@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemC
     private lateinit var binding: ActivityMainBinding
 
     private val lessonAdapter = LessonsAdapter()
-
+    private var myLogin = Student(1,"","","","","")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemC
         binding.viewmodel = viewModel
         binding.recyclerView.adapter = lessonAdapter
         viewModel.lessonListener = this
-        var myLogin = intent.getSerializableExtra("LoginUser") as Student
+        myLogin = intent.getSerializableExtra("LoginUser") as Student
         viewModel.fetchLessonsData(myLogin.bolum_id);
         toast(getMacAdress())
 
@@ -53,12 +53,13 @@ class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemC
     override fun onSuccess(loginResponse: LiveData<LessonService>) {
         loginResponse.observe(this, Observer {
             lessonAdapter.setOnItemClickListener(this)
-            lessonAdapter.setLessonList(it.lesson!!)
+            lessonAdapter.setLessonList(it.dersler!!)
         })
     }
     override fun onItemClick(lesson: Lesson) {
         val intent = Intent(this@MainActivity, LessonDetailActivity::class.java)
         intent.putExtra("lesson",lesson)
+        intent.putExtra("student",myLogin)
         startActivity(intent)
     }
 

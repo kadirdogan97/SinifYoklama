@@ -6,6 +6,6 @@ data class Discontinuity (
     val id : Int?,
     val ogr_ad_soyad : String?,
     val ders_adi : String?,
-    val tarih : String?,
+    val yoklama_tarih : String?,
     val devamsizlik : String?
 ): Serializable

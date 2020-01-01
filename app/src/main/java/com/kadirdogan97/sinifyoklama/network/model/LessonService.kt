@@ -3,5 +3,5 @@ import java.io.Serializable
 
 data class LessonService (
     val success : Boolean?,
-    val lesson : List<Lesson>?
+    val dersler : List<Lesson>?
 ): Serializable

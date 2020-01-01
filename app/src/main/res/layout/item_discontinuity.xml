@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -25,21 +24,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/name_lesson"
+                        android:id="@+id/date_discontinuity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:text="Test"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/colorPrimary" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/ogr_gorevli_lesson"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:text="Test2"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
                 <RelativeLayout
@@ -48,6 +38,7 @@
                     android:gravity="right"
                     android:layout_gravity="center">
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/status_discontinuity"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@color/colorAccent"/>
