@@ -23,6 +23,11 @@ interface YoklamaService {
     ): Call<DiscontinuityService>
 
 
+    @GET("index_ogr_gorevli.php")
+    fun userLoginT(
+        @Query("username") username: String,
+        @Query("password") password: String
+    ): Call<LoginT>
 
     @GET("dersler_ogr_gorevli.php")
     fun getLessonsT(
@@ -34,9 +39,14 @@ interface YoklamaService {
         @Query("ders_id") ders_id: String
     ): Call<DiscontinuityService>
 
-    @GET("devamsizliklar_ogr_gorevli.php")
+    @GET("barkod_olustur.php")
     fun setBarcode(
         @Query("barkod") barkod: String,
+        @Query("ders_id") ders_id: String
+    ): Call<ModifyResponse>
+
+    @GET("yoklama_kapat.php")
+    fun closeDiscontinuity(
         @Query("ders_id") ders_id: String
     ): Call<ModifyResponse>
 

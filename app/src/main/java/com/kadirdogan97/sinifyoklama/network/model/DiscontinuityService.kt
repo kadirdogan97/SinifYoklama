@@ -5,6 +5,7 @@ import java.io.Serializable
 data class DiscontinuityService (
     val success : Boolean?,
     val barkod : String?,
+    val aktif : String?,
     val devamsizlik_sayi : String?,
     val devamsizliklar : List<Discontinuity>?
 ): Serializable

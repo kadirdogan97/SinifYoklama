@@ -4,6 +4,7 @@ import java.io.Serializable
 
 data class Discontinuity (
     val id : Int?,
+    val ogr_no: String?,
     val ogr_ad_soyad : String?,
     val ders_adi : String?,
     val yoklama_tarih : String?,
