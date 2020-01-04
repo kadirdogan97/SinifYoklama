@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface YoklamaService {
-    @GET("index.php")
+    @GET("index_ogr.php")
     fun userLogin(
         @Query("username") username: String,
         @Query("password") password: String
@@ -54,5 +54,11 @@ interface YoklamaService {
     fun setDiscontinuity(
         @Query("ogr_id") ogr_id: String,
         @Query("ders_id") ders_id: String
+    ): Call<ModifyResponse>
+
+    @GET("cihaz_tanimla.php")
+    fun setDevice(
+        @Query("ogr_id") ogr_id: String,
+        @Query("ag_adres") ag_adres: String
     ): Call<ModifyResponse>
 }

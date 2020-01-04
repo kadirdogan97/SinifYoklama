@@ -3,10 +3,7 @@ package com.kadirdogan97.sinifyoklama.network
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.kadirdogan97.sinifyoklama.network.model.Lesson
-import com.kadirdogan97.sinifyoklama.network.model.LessonService
-import com.kadirdogan97.sinifyoklama.network.model.Login
-import com.kadirdogan97.sinifyoklama.network.model.Student
+import com.kadirdogan97.sinifyoklama.network.model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,4 +58,24 @@ class LessonsRepository {
 
         return lessonResponse
     }
+    fun setDevice(ogr_id: String, ag_adres: String) : LiveData<ModifyResponse> {
+        val deviceResponse = MutableLiveData<ModifyResponse>()
+        yoklamaServiceProvider.yoklamaService.setDevice(ogr_id,ag_adres)
+            .enqueue(object: Callback<ModifyResponse> {
+                override fun onFailure(call: Call<ModifyResponse>, t: Throwable) {
+                    val tempResponse = ModifyResponse(false,"yoklama alırken bir sıkıntı oluştu")
+                    deviceResponse.value = tempResponse
+                    Log.d("1", "test: "+t.message)
+                }
+
+                override fun onResponse(call: Call<ModifyResponse>, response: Response<ModifyResponse>) {
+                    Log.d("1", "test: "+response.body())
+                    deviceResponse.value = response.body()
+                }
+
+            })
+
+        return deviceResponse
+    }
+
 }

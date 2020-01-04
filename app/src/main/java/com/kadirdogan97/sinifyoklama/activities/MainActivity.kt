@@ -1,27 +1,26 @@
 package com.kadirdogan97.sinifyoklama.activities
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kadirdogan97.sinifyoklama.util.toast
-import android.net.wifi.WifiManager
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.kadirdogan97.sinifyoklama.LessonListener
+import com.kadirdogan97.sinifyoklama.network.LessonListener
+import com.kadirdogan97.sinifyoklama.network.ModifyListener
 import com.kadirdogan97.sinifyoklama.adapters.LessonsAdapter
 import com.kadirdogan97.sinifyoklama.R
 import com.kadirdogan97.sinifyoklama.databinding.ActivityMainBinding
-import com.kadirdogan97.sinifyoklama.network.model.Lesson
-import com.kadirdogan97.sinifyoklama.network.model.LessonService
-import com.kadirdogan97.sinifyoklama.network.model.Student
+import com.kadirdogan97.sinifyoklama.network.model.*
 import com.kadirdogan97.sinifyoklama.viewmodels.LessonsViewModel
+import java.net.NetworkInterface
+import java.util.*
 
 
-class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemClickListener{
+class MainActivity : AppCompatActivity(), LessonListener,
+    ModifyListener, LessonsAdapter.OnItemClickListener, LessonsViewModel.MainClickListener{
 
 
 
@@ -29,6 +28,7 @@ class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemC
 
     private val lessonAdapter = LessonsAdapter()
     private var myLogin = Student(1,"","","","","")
+    private var myLoginT = Teacher(1,"","")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +39,20 @@ class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemC
         binding.viewmodel = viewModel
         binding.recyclerView.adapter = lessonAdapter
         viewModel.lessonListener = this
-        myLogin = intent.getSerializableExtra("LoginUser") as Student
-        viewModel.fetchLessonsData(myLogin.bolum_id);
-        toast(getMacAdress())
+        viewModel.modifyListener = this
+        if(intent.hasExtra("LoginUser")) {
+            myLogin = intent.getSerializableExtra("LoginUser") as Student
+            viewModel.fetchLessonsData(myLogin.bolum_id);
+        }
+        if(intent.hasExtra("LoginUserT")) {
+            myLoginT = intent.getSerializableExtra("LoginUserT") as Teacher
+            viewModel.fetchLessonsTData(myLoginT.id.toString())
+        }
+        if(!myLogin.ag_adresi.equals(getMacAddr())){
+            toast("hatalı cihaz")
+            onBackPressed()
+        }
+
 
     }
 
@@ -57,19 +68,64 @@ class MainActivity : AppCompatActivity(), LessonListener, LessonsAdapter.OnItemC
         })
     }
     override fun onItemClick(lesson: Lesson) {
-        val intent = Intent(this@MainActivity, LessonDetailActivity::class.java)
-        intent.putExtra("lesson",lesson)
-        intent.putExtra("student",myLogin)
-        startActivity(intent)
+        val intentD = Intent(this@MainActivity, LessonDetailActivity::class.java)
+        intentD.putExtra("lesson",lesson)
+        if(intent.hasExtra("LoginUser")) {
+            intentD.putExtra("LoginUser",myLogin)
+        }
+        if(intent.hasExtra("LoginUserT")) {
+            intentD.putExtra("LoginUserT",myLoginT)
+        }
+        startActivity(intentD)
+
     }
 
     override fun onFailure(message: String?) {
         toast("Bir Sorun Oluştu")
     }
+    fun getMacAddr(): String {
+        try {
+            val all = Collections.list(NetworkInterface.getNetworkInterfaces())
+            for (nif in all) {
+                if (!nif.getName().equals("wlan0", ignoreCase=true)) continue
 
-    fun getMacAdress(): String{
-        val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        val wInfo = wifiManager.connectionInfo
-        return wInfo.macAddress
+                val macBytes = nif.getHardwareAddress() ?: return ""
+
+                val res1 = StringBuilder()
+                for (b in macBytes) {
+                    //res1.append(Integer.toHexString(b & 0xFF) + ":");
+                    res1.append(String.format("%02X:", b))
+                }
+
+                if (res1.length > 0) {
+                    res1.deleteCharAt(res1.length - 1)
+                }
+                return res1.toString()
+            }
+        } catch (ex: Exception) {
+        }
+
+        return "02:00:00:00:00:00"
+    }
+
+    override fun onStartedModify() {}
+
+    override fun onSuccessSetDisc(modifyResponse: LiveData<ModifyResponse>) {}
+
+    override fun onSuccessCloseDisc(modifyResponse: LiveData<ModifyResponse>) {}
+
+    override fun onSuccessCreateBarcode(modifyResponse: LiveData<ModifyResponse>) {}
+
+    override fun onSuccessSetDevice(modifyResponse: LiveData<ModifyResponse>) {
+        modifyResponse.observe(this, Observer {
+            toast(it.message)
+        })
+    }
+    override fun onFailureModify(message: String?) {
+        toast(message)
+    }
+
+    override fun onSetDeviceClicked() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

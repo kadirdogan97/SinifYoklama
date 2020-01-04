@@ -3,21 +3,24 @@ package com.kadirdogan97.sinifyoklama.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.CompoundButton
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.kadirdogan97.sinifyoklama.AuthListener
+import com.kadirdogan97.sinifyoklama.network.AuthListener
 import com.kadirdogan97.sinifyoklama.viewmodels.AuthViewModel
 import com.kadirdogan97.sinifyoklama.R
 import com.kadirdogan97.sinifyoklama.network.model.Login
 import com.kadirdogan97.sinifyoklama.databinding.ActivityLoginBinding
+import com.kadirdogan97.sinifyoklama.network.model.LoginT
 import com.kadirdogan97.sinifyoklama.util.hide
 import com.kadirdogan97.sinifyoklama.util.show
 import com.kadirdogan97.sinifyoklama.util.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), AuthListener {
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,18 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         viewModel.authListener = this
         viewModel.username = "151307051"
         viewModel.password = "k1"
+//        viewModel.username = "hyigit"
+//        viewModel.password = "hy1"
+        binding.switchCompat.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+                if(p1){
+                    binding.usernameEdit.hint = "Kullanici Adi"
+                }else{
+                    binding.usernameEdit.hint = "Ogrenci No"
+                }
+            }
+
+        })
     }
 
     override fun onStarted() {
@@ -47,12 +62,24 @@ class LoginActivity : AppCompatActivity(), AuthListener {
                 startActivity(intent)
             }
         })
-
+    }
+    override fun onSuccessT(loginResponse: LiveData<LoginT>) {
+        val intent = Intent(this, MainActivity::class.java)
+        loginResponse.observe(this, Observer {
+            progress_bar.hide()
+            toast(it.success.toString())
+            intent.putExtra("LoginUserT", it.user)
+            if(it.success!!){
+                startActivity(intent)
+            }
+        })
     }
 
     override fun onFailure(message: String?) {
         progress_bar.hide()
         toast("Login Failure")
     }
+
+
 
 }

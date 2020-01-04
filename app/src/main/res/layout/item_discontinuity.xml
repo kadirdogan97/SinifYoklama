@@ -37,11 +37,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:layout_gravity="center">
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <ImageView
                         android:id="@+id/status_discontinuity"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@color/colorAccent"/>
+                        android:background="@color/colorAccent"/>
                 </RelativeLayout>
 
 

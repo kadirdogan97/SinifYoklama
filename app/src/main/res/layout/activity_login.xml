@@ -46,9 +46,49 @@
                     app:fontFamily="casual" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Ogrenci "
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#969EEE"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
+                    app:fontFamily="casual" />
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchCompat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:checked="@{viewmodel.isChecked}" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Personel "
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#969EEE"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
+                    app:fontFamily="casual" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/linearLayout1"
@@ -57,6 +97,7 @@
                 android:padding="18dp">
 
                 <EditText
+                    android:id="@+id/username_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"
@@ -69,6 +110,7 @@
                     android:text="@={viewmodel.username}" />
 
                 <EditText
+                    android:id="@+id/pass_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="12dp"

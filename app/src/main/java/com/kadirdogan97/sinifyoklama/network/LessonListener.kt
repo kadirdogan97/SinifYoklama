@@ -1,4 +1,4 @@
-package com.kadirdogan97.sinifyoklama
+package com.kadirdogan97.sinifyoklama.network
 
 import androidx.lifecycle.LiveData
 import com.kadirdogan97.sinifyoklama.network.model.Lesson
