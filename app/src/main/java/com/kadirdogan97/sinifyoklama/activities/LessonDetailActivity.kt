@@ -1,6 +1,7 @@
 package com.kadirdogan97.sinifyoklama.activities
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ import com.kadirdogan97.sinifyoklama.viewmodels.LessonDetailsViewModel
 
 class LessonDetailActivity : AppCompatActivity(),
     DiscontinuityListener, LessonDetailsViewModel.DetailClickListener,
-    ModifyListener {
+    ModifyListener, DialogInterface.OnDismissListener {
 
 
 
@@ -111,6 +112,9 @@ class LessonDetailActivity : AppCompatActivity(),
         qrFragment.setCancelable(true)
         qrFragment.show(supportFragmentManager, "DIALOG_FRAGMENT")
     }
+    override fun onDismiss(p0: DialogInterface?) {
+        viewmodel.fetchDiscontinuityTData(myLesson.id.toString())
+    }
 
     override fun onStartedModify() {}
 
@@ -146,6 +150,8 @@ class LessonDetailActivity : AppCompatActivity(),
         super.onResume()
         if(discontinuityService?.barkod.equals(barkod)){
             toast("YOKLAMA BASARILI")
+            viewmodel.setDiscontinuity(myLesson.id.toString(), myLogin.id.toString())
+            viewmodel.fetchDiscontinuityData(myLesson.id.toString(), myLogin.id.toString())
         }
 
     }

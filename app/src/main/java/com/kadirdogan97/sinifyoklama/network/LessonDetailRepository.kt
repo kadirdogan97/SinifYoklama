@@ -62,7 +62,7 @@ class LessonDetailRepository {
 
     fun setDiscontinuity(ders_id: String, ogr_id: String) : LiveData<ModifyResponse> {
         val discontinuityResponse = MutableLiveData<ModifyResponse>()
-        yoklamaServiceProvider.yoklamaService.setDiscontinuity(ders_id,ogr_id)
+        yoklamaServiceProvider.yoklamaService.setDiscontinuity(ogr_id,ders_id)
             .enqueue(object: Callback<ModifyResponse> {
                 override fun onFailure(call: Call<ModifyResponse>, t: Throwable) {
                     val tempResponse = ModifyResponse(false,"yoklama alırken bir sıkıntı oluştu")

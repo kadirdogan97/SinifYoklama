@@ -1,5 +1,6 @@
 package com.kadirdogan97.sinifyoklama
 
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,9 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.kadirdogan97.sinifyoklama.activities.LessonDetailActivity
+import android.app.Activity
+
+
 
 class QRDialogFragment : DialogFragment() {
 
@@ -40,5 +44,13 @@ class QRDialogFragment : DialogFragment() {
         }
 
         return rootView
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        val activity = activity
+        if (activity is DialogInterface.OnDismissListener) {
+            (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
+        }
     }
 }

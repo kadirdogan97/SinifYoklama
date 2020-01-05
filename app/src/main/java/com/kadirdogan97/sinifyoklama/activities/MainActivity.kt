@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), LessonListener,
             myLoginT = intent.getSerializableExtra("LoginUserT") as Teacher
             viewModel.fetchLessonsTData(myLoginT.id.toString())
         }
-        if(!myLogin.ag_adresi.equals(getMacAddr())){
+        if(!myLogin.ag_adresi.equals(getMacAddr())&&intent.hasExtra("LoginUser")){
             toast("hatalı cihaz")
             onBackPressed()
         }

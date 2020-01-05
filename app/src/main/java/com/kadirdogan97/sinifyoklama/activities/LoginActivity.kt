@@ -31,16 +31,18 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         val viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
         viewModel.authListener = this
-        viewModel.username = "151307051"
-        viewModel.password = "k1"
-//        viewModel.username = "hyigit"
-//        viewModel.password = "hy1"
+//        viewModel.username = "151307051"
+//        viewModel.password = "k1"
+        viewModel.username = "hyigit"
+        viewModel.password = "hy1"
         binding.switchCompat.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
                 if(p1){
                     binding.usernameEdit.hint = "Kullanici Adi"
+                    viewModel.isChecked=true
                 }else{
                     binding.usernameEdit.hint = "Ogrenci No"
+                    viewModel.isChecked=false
                 }
             }
 
