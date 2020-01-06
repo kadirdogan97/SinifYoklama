@@ -17,96 +17,158 @@
             android:id="@+id/layoutStudent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/lesson_name"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="13dp"
-                android:hint="Ders: kablosuz ag teknolojileri"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/colorPrimaryDark" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/teacher_name"
+                android:layout_margin="13dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lesson_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ders: kablosuz ag teknolojileri"
+                        android:layout_margin="10dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/teacher_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Öğretim Görevlisi: halil yigit"
+                        android:layout_margin="10dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/devamsizlik_sayi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Devamsızlık: 2"
+                        android:layout_margin="10dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/yoklamaAl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:onClick="@{viewmodel::onCheckDiscontinuityButtonClick}"
+                        android:text="Yoklama Al"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="13dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="13dp"
-                android:hint="Öğretim Görevlisi: halil yigit"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/colorPrimaryDark" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/devamsizlik_sayi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="13dp"
-                android:hint="Devamsızlık: 2"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/colorPrimaryDark" />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/yoklamaAl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{viewmodel::onCheckDiscontinuityButtonClick}"
-                android:text="Yoklama Al"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DEVAMSIZLIKLAR"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DEVAMSIZLIKLAR"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginHorizontal="10dp"
+                    android:paddingTop="10dp"
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layoutTeacher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/lesson_name_teacher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="13dp"
-                android:hint="Ders: kablosuz ag teknolojileri"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@color/colorPrimaryDark" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="13dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:orientation="vertical">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lesson_name_teacher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="Ders: kablosuz ag teknolojileri"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/colorPrimaryDark" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/barkodOlustur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{viewmodel::onCreateBarcodeButtonClick}"
+                        android:layout_margin="10dp"
+                        android:text="Barkod Oluştur"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/yoklamaKapat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:onClick="@{viewmodel::onCloseDiscontinuityButtonClick}"
+                        android:text="Yoklama Kapat"/>
+                </LinearLayout>
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/barkodOlustur"
+                    android:id="@+id/mailGonder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{viewmodel::onCreateBarcodeButtonClick}"
-                    android:text="Barkod Oluştur"/>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/yoklamaKapat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{viewmodel::onCloseDiscontinuityButtonClick}"
-                    android:text="Yoklama Kapat"/>
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:onClick="@{viewmodel::onSendMailButtonClick}"
+                    android:text="Listeyi Mail Gönder"/>
             </LinearLayout>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/mailGonder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:onClick="@{viewmodel::onSendMailButtonClick}"
-                android:text="Listeyi Mail Gönder"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DEVAMSIZLIKLAR"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewT"
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="13dp">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DEVAMSIZLIKLAR"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewT"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         </LinearLayout>
 
     </RelativeLayout>

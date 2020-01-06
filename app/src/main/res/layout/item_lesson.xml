@@ -15,11 +15,14 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="1dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,10 +50,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:layout_gravity="center">
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <ImageView
+                        android:id="@+id/yoklama_aktif"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@color/colorAccent"/>
+                        android:background="@color/colorAccent"/>
                 </RelativeLayout>
 
 

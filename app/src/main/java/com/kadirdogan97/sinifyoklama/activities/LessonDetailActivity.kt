@@ -6,11 +6,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -34,6 +38,7 @@ class LessonDetailActivity : AppCompatActivity(),
     companion object {
         var barkod = "BARKOD"
         var cBarkod = ""
+        var barkodO: ObservableField<String> = ObservableField()
     }
     private var viewmodel= LessonDetailsViewModel()
     private val discontinuityAdapter = DiscontinuityAdapter()
@@ -43,6 +48,7 @@ class LessonDetailActivity : AppCompatActivity(),
     private var myLoginT = Teacher(1,"","")
     private var myLesson = Lesson(1,"","","","","","","","");
     private var discontinuityService: DiscontinuityService? =null
+    private var yoklamaSw: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
@@ -64,6 +70,25 @@ class LessonDetailActivity : AppCompatActivity(),
             myLoginT = intent.getSerializableExtra("LoginUserT") as Teacher
             viewmodel.fetchDiscontinuityTData(myLesson.id.toString())
         }
+        var isFirst = true
+        barkodO.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Log.d("TAG", barkodO.get())
+                Handler(Looper.getMainLooper()).post(object : Runnable{
+                    override fun run() {
+                        viewmodel.setBarcode(barkodO.get(),myLesson.id.toString())                    }
+
+                })
+            }
+
+        })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(intent.hasExtra("LoginUser")) {
+            viewmodel.fetchDiscontinuityData(myLesson.id.toString(),myLogin.id.toString())
+        }
     }
     override fun onStarted() {}
     override fun onSuccess(discontinuityResponse: LiveData<DiscontinuityService>) {
@@ -75,26 +100,27 @@ class LessonDetailActivity : AppCompatActivity(),
                 }
                 binding.layoutStudent.visibility = View.VISIBLE
                 binding.layoutTeacher.visibility = View.GONE
-                binding.lessonName.text=myLesson.ders_adi
-                binding.teacherName.text=myLesson.ogr_gorevli_ad_soyad
-                binding.devamsizlikSayi.text=it.devamsizlik_sayi
+                binding.lessonName.text="Ders: "+myLesson.ders_adi
+                binding.teacherName.text="Öğretim Görevlisi: "+myLesson.ogr_gorevli_ad_soyad
+                binding.devamsizlikSayi.text="Devamsızlık: "+it.devamsizlik_sayi
                 discontinuityAdapter.setDiscontinuityList(it.devamsizliklar!!)
             }
             if(intent.hasExtra("LoginUserT")) {
                 binding.layoutStudent.visibility = View.GONE
                 binding.layoutTeacher.visibility = View.VISIBLE
-                binding.lessonNameTeacher.text = myLesson.ders_adi
+                binding.lessonNameTeacher.text = "Ders: "+myLesson.ders_adi
                 discontinuityTAdapter.setDiscontinuityList(it.devamsizliklar!!)
             }
+
         })
     }
     override fun onFailure(message: String?) {}
 
     override fun onCheckClicked() {
-        toast(discontinuityService?.barkod.toString())
+     //   toast(discontinuityService?.barkod.toString())
 
-        startActivity(Intent(getApplicationContext(), ScanCodeActivity::class.java));
-
+        startActivity(Intent(getApplicationContext(), ScanCodeActivity::class.java))
+        onPause()
         //viewmodel.setDiscontinuity()
     }
     override fun onCloseClicked() {
@@ -102,8 +128,6 @@ class LessonDetailActivity : AppCompatActivity(),
     }
 
     override fun onBarcodeClicked() {
-        cBarkod="TETETE"
-        viewmodel.setBarcode(cBarkod,myLesson.id.toString())
         showDialog()
     }
 
@@ -120,7 +144,7 @@ class LessonDetailActivity : AppCompatActivity(),
 
     override fun onSuccessSetDisc(modifyResponse: LiveData<ModifyResponse>) {
         modifyResponse.observe(this, Observer {
-            toast(it.message)
+      //      toast(it.message)
         })
     }
 
@@ -148,12 +172,21 @@ class LessonDetailActivity : AppCompatActivity(),
 
     override fun onResume() {
         super.onResume()
+        if(intent.hasExtra("LoginUser")) {
+            viewmodel.fetchDiscontinuityData(myLesson.id.toString(),myLogin.id.toString())
+        }
+        Log.d("TAG","barkod:"+ barkod+" ve "+ discontinuityService?.barkod)
         if(discontinuityService?.barkod.equals(barkod)){
-            toast("YOKLAMA BASARILI")
+            //  toast("YOKLAMA BASARILI")
             viewmodel.setDiscontinuity(myLesson.id.toString(), myLogin.id.toString())
-            viewmodel.fetchDiscontinuityData(myLesson.id.toString(), myLogin.id.toString())
+            barkod=""
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        yoklamaSw=false
     }
     private fun askForPermission(permission: String, requestCode: Int?) {
         if (ContextCompat.checkSelfPermission(
@@ -182,10 +215,10 @@ class LessonDetailActivity : AppCompatActivity(),
                 )
             }
         } else {
-            Toast.makeText(
+            /*Toast.makeText(
                 this, "$permission is already granted.",
                 Toast.LENGTH_SHORT
-            ).show()
+            ).show()*/
         }
     }
     override fun onSendMailClicked() {

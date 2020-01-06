@@ -29,31 +29,42 @@ class MainActivity : AppCompatActivity(), LessonListener,
     private val lessonAdapter = LessonsAdapter()
     private var myLogin = Student(1,"","","","","")
     private var myLoginT = Teacher(1,"","")
-
+    private var viewmodel = LessonsViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
             R.layout.activity_main
         )
-        val viewModel = ViewModelProviders.of(this).get(LessonsViewModel::class.java)
-        binding.viewmodel = viewModel
+        viewmodel = ViewModelProviders.of(this).get(LessonsViewModel::class.java)
+        binding.viewmodel = viewmodel
         binding.recyclerView.adapter = lessonAdapter
-        viewModel.lessonListener = this
-        viewModel.modifyListener = this
+        viewmodel.lessonListener = this
+        viewmodel.modifyListener = this
         if(intent.hasExtra("LoginUser")) {
             myLogin = intent.getSerializableExtra("LoginUser") as Student
-            viewModel.fetchLessonsData(myLogin.bolum_id);
+            viewmodel.fetchLessonsData(myLogin.bolum_id);
         }
         if(intent.hasExtra("LoginUserT")) {
             myLoginT = intent.getSerializableExtra("LoginUserT") as Teacher
-            viewModel.fetchLessonsTData(myLoginT.id.toString())
+            viewmodel.fetchLessonsTData(myLoginT.id.toString())
         }
         if(!myLogin.ag_adresi.equals(getMacAddr())&&intent.hasExtra("LoginUser")){
             toast("hatalı cihaz")
+            toast(getMacAddr())
             onBackPressed()
         }
 
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(intent.hasExtra("LoginUser")) {
+            viewmodel.fetchLessonsData(myLogin.bolum_id);
+        }
+        if(intent.hasExtra("LoginUserT")) {
+            viewmodel.fetchLessonsTData(myLoginT.id.toString())
+        }
     }
 
     override fun onStarted() {
@@ -65,6 +76,9 @@ class MainActivity : AppCompatActivity(), LessonListener,
         loginResponse.observe(this, Observer {
             lessonAdapter.setOnItemClickListener(this)
             lessonAdapter.setLessonList(it.dersler!!)
+            if(intent.hasExtra("LoginUserT")) {
+                lessonAdapter.setTeacher(true)
+            }
         })
     }
     override fun onItemClick(lesson: Lesson) {
