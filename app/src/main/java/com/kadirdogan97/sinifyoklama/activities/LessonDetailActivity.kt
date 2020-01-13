@@ -46,7 +46,7 @@ class LessonDetailActivity : AppCompatActivity(),
     private lateinit var binding: ActivityLessonDetailBinding
     private var myLogin = Student(1,"","","","","")
     private var myLoginT = Teacher(1,"","")
-    private var myLesson = Lesson(1,"","","","","","","","");
+    private var myLesson = Lesson(1,"", "","","","","","","","")
     private var discontinuityService: DiscontinuityService? =null
     private var yoklamaSw: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,6 +103,7 @@ class LessonDetailActivity : AppCompatActivity(),
                 binding.lessonName.text="Ders: "+myLesson.ders_adi
                 binding.teacherName.text="Öğretim Görevlisi: "+myLesson.ogr_gorevli_ad_soyad
                 binding.devamsizlikSayi.text="Devamsızlık: "+it.devamsizlik_sayi
+                binding.devamsizlikHak.text="Kalan: "+(myLesson.devamsizlik_sinir!!.toInt()-it.devamsizlik_sayi!!.toInt())
                 discontinuityAdapter.setDiscontinuityList(it.devamsizliklar!!)
             }
             if(intent.hasExtra("LoginUserT")) {

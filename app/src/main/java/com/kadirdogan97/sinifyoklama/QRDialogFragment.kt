@@ -18,6 +18,7 @@ import android.app.Activity
 import android.media.Image
 import android.os.Handler
 import com.kadirdogan97.sinifyoklama.util.getTimeWithSec
+import com.kadirdogan97.sinifyoklama.util.toMD5Hash
 import kotlinx.android.synthetic.main.fragment_dialog_qr.*
 import java.util.*
 import kotlin.concurrent.schedule
@@ -35,7 +36,7 @@ class QRDialogFragment : DialogFragment() {
     ): View? {
         var rootView: View = inflater.inflate(R.layout.fragment_dialog_qr,container,false)
         imageView = (rootView.findViewById(R.id.imageView) as ImageView)
-        timeNow= getTimeWithSec()
+        timeNow= toMD5Hash(getTimeWithSec())
         LessonDetailActivity.barkodO.set(timeNow)
         val writer = QRCodeWriter()
         try {
@@ -54,7 +55,7 @@ class QRDialogFragment : DialogFragment() {
             e.printStackTrace()
         }
         timer = Timer("SettingUp", false).schedule(60000,60000) {
-            timeNow = getTimeWithSec()
+            timeNow = toMD5Hash(getTimeWithSec())
             LessonDetailActivity.barkodO.set(timeNow)
             setPixels()
         }

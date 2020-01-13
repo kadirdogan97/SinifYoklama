@@ -19,7 +19,7 @@ class LessonsRepository {
             .enqueue(object: Callback<LessonService>{
                 override fun onFailure(call: Call<LessonService>, t: Throwable) {
                     val tempLesson = ArrayList<Lesson>()
-                    tempLesson.add(Lesson(1, "1", "1", "1", "1", "1", "1", "1",null))
+                    tempLesson.add(Lesson(1, "1", "1", "1", "1", "1", "1", "1", "1",null))
                     val tempLessonService = LessonService(true,tempLesson)
                     lessonResponse.value = tempLessonService
                     Log.d("1", "test: "+t.message)
@@ -42,7 +42,7 @@ class LessonsRepository {
             .enqueue(object: Callback<LessonService>{
                 override fun onFailure(call: Call<LessonService>, t: Throwable) {
                     val tempLesson = ArrayList<Lesson>()
-                    tempLesson.add(Lesson(1, "1", "1", "1", "1", "1", "1", "1",null))
+                    tempLesson.add(Lesson(1, "1", "1", "1", "1", "1", "1", "1", "1",null))
                     val tempLessonService = LessonService(true,tempLesson)
                     lessonResponse.value = tempLessonService
                     Log.d("1", "test: "+t.message)
