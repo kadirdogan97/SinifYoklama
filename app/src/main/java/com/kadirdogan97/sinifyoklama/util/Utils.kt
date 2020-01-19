@@ -18,7 +18,13 @@ fun ProgressBar.show(){
 fun ProgressBar.hide(){
     visibility = View.GONE
 }
+fun getDate(): String{
 
+    var sdf:SimpleDateFormat = SimpleDateFormat("dd_MM_yyyy", Locale.getDefault())
+    var currentDate:String = sdf.format(Date())
+    return currentDate
+
+}
 fun getTimeWithSec(): String{
 
     var sdf:SimpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())

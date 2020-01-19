@@ -75,11 +75,19 @@ class LessonDetailsViewModel: ViewModel(){
     fun onSendMailButtonClick(view: View){
         detailClickListener?.onSendMailClicked()
     }
+    fun onRefreshButtonClick(view: View){
+        detailClickListener?.onRefreshClicked()
+    }
+    fun onToggleButtonClick(view: View){
+        detailClickListener?.onToggleClicked()
+    }
     interface DetailClickListener {
         fun onCheckClicked()
         fun onCloseClicked()
         fun onBarcodeClicked()
         fun onSendMailClicked()
+        fun onRefreshClicked()
+        fun onToggleClicked()
     }
 
 

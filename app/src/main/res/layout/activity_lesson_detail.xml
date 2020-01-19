@@ -9,6 +9,9 @@
             type="com.kadirdogan97.sinifyoklama.viewmodels.LessonDetailsViewModel" />
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -96,7 +99,6 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
         </LinearLayout>
         <LinearLayout
             android:id="@+id/layoutTeacher"
@@ -120,6 +122,14 @@
                     android:hint="Ders: kablosuz ag teknolojileri"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/colorPrimaryDark" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lessonDiscontinuity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="Durum: 25/28"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/colorPrimaryDark" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -131,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="@{viewmodel::onCreateBarcodeButtonClick}"
                         android:layout_margin="10dp"
-                        android:text="Barkod Oluştur"/>
+                        android:text="Yoklama Aç"/>
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/yoklamaKapat"
                         android:layout_width="wrap_content"
@@ -140,18 +150,66 @@
                         android:onClick="@{viewmodel::onCloseDiscontinuityButtonClick}"
                         android:text="Yoklama Kapat"/>
                 </LinearLayout>
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/mailGonder"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/mailGonder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:onClick="@{viewmodel::onSendMailButtonClick}"
+                        android:text="Tümünü Mail Gönder"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/guncelle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:onClick="@{viewmodel::onRefreshButtonClick}"
+                        android:text="Güncelle"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/toggleDiscontinuity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{viewmodel::onToggleButtonClick}"
+            >
+        </androidx.appcompat.widget.AppCompatButton>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviewNow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="13dp">
+            <LinearLayout
+                android:id="@+id/nowDisc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:onClick="@{viewmodel::onSendMailButtonClick}"
-                    android:text="Listeyi Mail Gönder"/>
+                    android:text="DEVAMSIZLIKLAR"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewTNow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"></androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview4"
+            android:id="@+id/cardviewAll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="13dp">
@@ -178,6 +236,6 @@
         </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
     </RelativeLayout>
+    </ScrollView>
 </layout>

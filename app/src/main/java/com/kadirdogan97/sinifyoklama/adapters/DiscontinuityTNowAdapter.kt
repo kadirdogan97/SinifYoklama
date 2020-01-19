@@ -1,19 +1,14 @@
 package com.kadirdogan97.sinifyoklama.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kadirdogan97.sinifyoklama.R
-import com.kadirdogan97.sinifyoklama.databinding.ItemDiscontinuityBinding
-import com.kadirdogan97.sinifyoklama.databinding.ItemDiscontinuityTBinding
-import com.kadirdogan97.sinifyoklama.databinding.ItemLessonBinding
+import com.kadirdogan97.sinifyoklama.databinding.ItemDiscontinuityTNowBinding
 import com.kadirdogan97.sinifyoklama.network.model.Discontinuity
-import com.kadirdogan97.sinifyoklama.network.model.DiscontinuityService
-import com.kadirdogan97.sinifyoklama.network.model.Lesson
 
-class DiscontinuityTAdapter : RecyclerView.Adapter<DiscontinuityTAdapter.DiscontinuityItemViewHolder>() {
+class DiscontinuityTNowAdapter : RecyclerView.Adapter<DiscontinuityTNowAdapter.DiscontinuityItemViewHolder>() {
 
     private val discontinuityList = arrayListOf<Discontinuity>()
     fun setDiscontinuityList(discontinuityList: List<Discontinuity>) {
@@ -31,21 +26,25 @@ class DiscontinuityTAdapter : RecyclerView.Adapter<DiscontinuityTAdapter.Discont
 
     override fun getItemCount(): Int = discontinuityList.size
 
-    class DiscontinuityItemViewHolder(private val binding: ItemDiscontinuityTBinding) :
+    class DiscontinuityItemViewHolder(private val binding: ItemDiscontinuityTNowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(discontinuity: Discontinuity) {
             binding.ogrAdSoyadT.text = discontinuity.ogr_ad_soyad
             binding.ogrNoT.text = discontinuity.ogr_no
-            binding.devamsizlikSayiT.text = discontinuity.devamsizlik
+            if(discontinuity.devamsizlikSuan.equals("1")){
+                binding.statusDiscontinuity.setBackgroundResource(R.color.colorGreen)
+            }else{
+                binding.statusDiscontinuity.setBackgroundResource(R.color.colorRed)
+            }
 
         }
 
         companion object {
             fun create(parent: ViewGroup): DiscontinuityItemViewHolder {
-                val binding = DataBindingUtil.inflate<ItemDiscontinuityTBinding>(
+                val binding = DataBindingUtil.inflate<ItemDiscontinuityTNowBinding>(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_discontinuity_t,
+                    R.layout.item_discontinuity_t_now,
                     parent,
                     false
                 )

@@ -21,18 +21,19 @@ import androidx.lifecycle.ViewModelProviders
 import com.kadirdogan97.sinifyoklama.*
 import com.kadirdogan97.sinifyoklama.adapters.DiscontinuityAdapter
 import com.kadirdogan97.sinifyoklama.adapters.DiscontinuityTAdapter
+import com.kadirdogan97.sinifyoklama.adapters.DiscontinuityTNowAdapter
 import com.kadirdogan97.sinifyoklama.databinding.ActivityLessonDetailBinding
 import com.kadirdogan97.sinifyoklama.network.DiscontinuityListener
 import com.kadirdogan97.sinifyoklama.network.ExcelExporter
 import com.kadirdogan97.sinifyoklama.network.ModifyListener
 import com.kadirdogan97.sinifyoklama.network.model.*
+import com.kadirdogan97.sinifyoklama.util.getDate
 import com.kadirdogan97.sinifyoklama.util.toast
 import com.kadirdogan97.sinifyoklama.viewmodels.LessonDetailsViewModel
 
 class LessonDetailActivity : AppCompatActivity(),
     DiscontinuityListener, LessonDetailsViewModel.DetailClickListener,
     ModifyListener, DialogInterface.OnDismissListener {
-
 
 
     companion object {
@@ -42,6 +43,7 @@ class LessonDetailActivity : AppCompatActivity(),
     }
     private var viewmodel= LessonDetailsViewModel()
     private val discontinuityAdapter = DiscontinuityAdapter()
+    private val discontinuityTNowAdapter = DiscontinuityTNowAdapter()
     private val discontinuityTAdapter = DiscontinuityTAdapter()
     private lateinit var binding: ActivityLessonDetailBinding
     private var myLogin = Student(1,"","","","","")
@@ -49,6 +51,7 @@ class LessonDetailActivity : AppCompatActivity(),
     private var myLesson = Lesson(1,"", "","","","","","","","")
     private var discontinuityService: DiscontinuityService? =null
     private var yoklamaSw: Boolean = false
+    private var discontinuityToggle: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
@@ -58,6 +61,7 @@ class LessonDetailActivity : AppCompatActivity(),
         binding.viewmodel = viewmodel
         binding.recyclerView.adapter = discontinuityAdapter
         binding.recyclerViewT.adapter = discontinuityTAdapter
+        binding.recyclerViewTNow.adapter = discontinuityTNowAdapter
         viewmodel.discontinuityListener = this
         viewmodel.detailClickListener = this
         viewmodel.modifyListener = this
@@ -98,6 +102,9 @@ class LessonDetailActivity : AppCompatActivity(),
                 if(it.aktif.equals("0")){
                     binding.yoklamaAl.visibility = View.GONE
                 }
+                else{
+                    binding.yoklamaAl.visibility = View.VISIBLE
+                }
                 binding.layoutStudent.visibility = View.VISIBLE
                 binding.layoutTeacher.visibility = View.GONE
                 binding.lessonName.text="Ders: "+myLesson.ders_adi
@@ -107,10 +114,36 @@ class LessonDetailActivity : AppCompatActivity(),
                 discontinuityAdapter.setDiscontinuityList(it.devamsizliklar!!)
             }
             if(intent.hasExtra("LoginUserT")) {
+                var counter = 0
+                var length = (it.devamsizliklar!!.size-1)
+                for (i:Int in 0..length){
+                    if(it.devamsizliklar.get(i).devamsizlik.equals("1"))
+                        counter++
+                }
+                if(it.aktif.equals("0")){
+                    binding.lessonDiscontinuity.visibility = View.GONE
+                    binding.toggleDiscontinuity.visibility = View.GONE
+                    binding.cardviewAll.visibility = View.VISIBLE
+                    binding.cardviewNow.visibility = View.GONE
+                    binding.toggleDiscontinuity.text = "Tüm Devamsızlıklar"
+                    discontinuityToggle = false
+                }else{
+                    binding.lessonDiscontinuity.visibility = View.VISIBLE
+                    binding.toggleDiscontinuity.visibility = View.VISIBLE
+                    binding.cardviewAll.visibility = View.GONE
+                    binding.cardviewNow.visibility = View.VISIBLE
+                    binding.toggleDiscontinuity.text = "Bugün Devamsızlıklar"
+
+                    discontinuityToggle = true
+                }
+
                 binding.layoutStudent.visibility = View.GONE
                 binding.layoutTeacher.visibility = View.VISIBLE
                 binding.lessonNameTeacher.text = "Ders: "+myLesson.ders_adi
+                binding.lessonDiscontinuity.text = "Durum: "+counter+"/"+it.devamsizliklar!!.size
+
                 discontinuityTAdapter.setDiscontinuityList(it.devamsizliklar!!)
+                discontinuityTNowAdapter.setDiscontinuityList(it.devamsizliklar)//todo anlık yapılacak
             }
 
         })
@@ -148,6 +181,29 @@ class LessonDetailActivity : AppCompatActivity(),
       //      toast(it.message)
         })
     }
+    override fun onRefreshClicked() {
+        if(intent.hasExtra("LoginUser")) {
+            viewmodel.fetchDiscontinuityData(myLesson.id.toString(),myLogin.id.toString())
+        }
+        if(intent.hasExtra("LoginUserT")) {
+            viewmodel.fetchDiscontinuityTData(myLesson.id.toString())
+        }
+    }
+    override fun onToggleClicked() {
+        if(intent.hasExtra("LoginUserT")) {
+            if(discontinuityToggle){
+                binding.cardviewAll.visibility = View.VISIBLE
+                binding.cardviewNow.visibility = View.GONE
+                binding.toggleDiscontinuity.text = "Tüm Devamsızlıklar"
+                discontinuityToggle = false
+            }else{
+                binding.cardviewAll.visibility = View.GONE
+                binding.cardviewNow.visibility = View.VISIBLE
+                binding.toggleDiscontinuity.text = "Bugün Devamsızlıklar"
+                discontinuityToggle = true
+            }
+        }
+    }
 
     override fun onSuccessCloseDisc(modifyResponse: LiveData<ModifyResponse>) {
         modifyResponse.observe(this, Observer {
@@ -175,6 +231,9 @@ class LessonDetailActivity : AppCompatActivity(),
         super.onResume()
         if(intent.hasExtra("LoginUser")) {
             viewmodel.fetchDiscontinuityData(myLesson.id.toString(),myLogin.id.toString())
+        }
+        if(intent.hasExtra("LoginUserT")) {
+            viewmodel.fetchDiscontinuityTData(myLesson.id.toString())
         }
         Log.d("TAG","barkod:"+ barkod+" ve "+ discontinuityService?.barkod)
         if(discontinuityService?.barkod.equals(barkod)){
@@ -225,9 +284,10 @@ class LessonDetailActivity : AppCompatActivity(),
     override fun onSendMailClicked() {
         askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, 1)
         askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 1)
-        ExcelExporter.export(discontinuityService,myLesson)
+
+        ExcelExporter.export(discontinuityService,myLesson, getDate())
         toast("excel olusturuldu")
-        var fileDirectory = "/storage/emulated/0/Download/test.xls"
+        var fileDirectory = "/storage/emulated/0/Download/"+myLesson.id+getDate()+".xls"
         ExcelExporter.sendEmailWithAttachment(this,"zkdr.dgn@gmail.com", "Yoklama", "Icerik", fileDirectory)
     }
 

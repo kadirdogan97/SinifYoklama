@@ -20,9 +20,9 @@ import jxl.write.WritableWorkbook;
 
 public class ExcelExporter {
 
-    public static void export(DiscontinuityService discontinuityService, Lesson lesson) {
+    public static void export(DiscontinuityService discontinuityService, Lesson lesson, String getDate) {
         File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        String csvFile = "test.xls";
+        String csvFile = ""+lesson.getId()+getDate+".xls";
 
         File directory = new File(sd.getAbsolutePath());
 

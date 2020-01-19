@@ -20,7 +20,7 @@ class LessonDetailRepository {
             .enqueue(object: Callback<DiscontinuityService> {
                 override fun onFailure(call: Call<DiscontinuityService>, t: Throwable) {
                     val tempDiscontinuity = ArrayList<Discontinuity>()
-                    tempDiscontinuity.add(Discontinuity(0, "0", "0", "0", "0","0"))
+                    tempDiscontinuity.add(Discontinuity(0, "0", "0", "0", "0","0","0"))
                     val tempDiscService = DiscontinuityService(false,"0","0","0",tempDiscontinuity)
                     discontinuityResponse.value = tempDiscService
                     Log.d("1", "test: "+t.message)
@@ -43,7 +43,7 @@ class LessonDetailRepository {
             .enqueue(object: Callback<DiscontinuityService> {
                 override fun onFailure(call: Call<DiscontinuityService>, t: Throwable) {
                     val tempDiscontinuity = ArrayList<Discontinuity>()
-                    tempDiscontinuity.add(Discontinuity(0, "0", "0", "0", "0","0"))
+                    tempDiscontinuity.add(Discontinuity(0, "0", "0", "0", "0","0","0"))
                     val tempDiscService = DiscontinuityService(false,"0","0","0",tempDiscontinuity)
                     discontinuityResponse.value = tempDiscService
                     Log.d("1", "test: "+t.message)

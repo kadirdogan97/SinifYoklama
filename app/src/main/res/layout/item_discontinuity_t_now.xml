@@ -11,23 +11,20 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:clickable="true">
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3">
-
+                android:weightSum="4">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="2">
+                    android:layout_weight="1">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/ogr_ad_soyad_T"
@@ -47,23 +44,17 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/colorPrimaryDark" />
                 </LinearLayout>
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_gravity="center">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:gravity="center"
-                        android:id="@+id/devamsizlik_sayi_T"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:hint="Devamsızlık : 3"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/colorPrimaryDark" />
+                    android:gravity="right"
+                    android:layout_gravity="center"
+                    android:layout_weight="3">
+                    <ImageView
+                        android:id="@+id/status_discontinuity"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@color/colorAccent"/>
                 </LinearLayout>
 
 
