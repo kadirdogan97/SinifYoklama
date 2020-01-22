@@ -48,6 +48,14 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@color/colorPrimaryDark" />
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/teacher_mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Mail: halil yigit"
+                        android:layout_margin="10dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/colorPrimaryDark" />
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/devamsizlik_sayi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

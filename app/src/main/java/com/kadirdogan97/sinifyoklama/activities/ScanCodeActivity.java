@@ -38,7 +38,7 @@ public class ScanCodeActivity extends AppCompatActivity implements ZXingScannerV
         {
             if(checkPermission())
             {
-                Toast.makeText(getApplicationContext(), "Permission already granted!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Permission already granted!", Toast.LENGTH_LONG).show();
             }
             else
             {

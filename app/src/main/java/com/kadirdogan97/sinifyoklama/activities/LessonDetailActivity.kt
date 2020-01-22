@@ -109,6 +109,7 @@ class LessonDetailActivity : AppCompatActivity(),
                 binding.layoutTeacher.visibility = View.GONE
                 binding.lessonName.text="Ders: "+myLesson.ders_adi
                 binding.teacherName.text="Öğretim Görevlisi: "+myLesson.ogr_gorevli_ad_soyad
+                binding.teacherMail.text ="Öğretim Görevlisi Mail: "+myLesson.ogr_gorevli_mail
                 binding.devamsizlikSayi.text="Devamsızlık: "+it.devamsizlik_sayi
                 binding.devamsizlikHak.text="Kalan: "+(myLesson.devamsizlik_sinir!!.toInt()-it.devamsizlik_sayi!!.toInt())
                 discontinuityAdapter.setDiscontinuityList(it.devamsizliklar!!)
@@ -237,7 +238,7 @@ class LessonDetailActivity : AppCompatActivity(),
         }
         Log.d("TAG","barkod:"+ barkod+" ve "+ discontinuityService?.barkod)
         if(discontinuityService?.barkod.equals(barkod)){
-            //  toast("YOKLAMA BASARILI")
+            toast("YOKLAMA BASARILI")
             viewmodel.setDiscontinuity(myLesson.id.toString(), myLogin.id.toString())
             barkod=""
         }

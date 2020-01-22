@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         val intent = Intent(this, MainActivity::class.java)
         loginResponse.observe(this, Observer {
             progress_bar.hide()
-            toast(it.success.toString())
+            //toast(it.success.toString())
             intent.putExtra("LoginUser", it.user)
             if(it.success!!){
                 startActivity(intent)
@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         val intent = Intent(this, MainActivity::class.java)
         loginResponse.observe(this, Observer {
             progress_bar.hide()
-            toast(it.success.toString())
+//            toast(it.success.toString())
             intent.putExtra("LoginUserT", it.user)
             if(it.success!!){
                 startActivity(intent)

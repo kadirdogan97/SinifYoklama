@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity(), LessonListener,
         }
         if(!myLogin.ag_adresi.equals(getMacAddr())&&intent.hasExtra("LoginUser")){
             toast("hatalı cihaz")
-            toast(getMacAddr())
             onBackPressed()
         }
 
