@@ -27,7 +27,6 @@ public class ScanCodeActivity extends AppCompatActivity implements ZXingScannerV
 
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
-    private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

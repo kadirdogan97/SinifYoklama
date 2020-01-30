@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SinifYoklama</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+    <string name="enter_name">Enter name</string>
+    <string name="select_name">Select name</string>
+    <string name="ok">OK</string>
+
+    <string name="initializing">Initializing…</string>
+    <string name="training">Training data…</string>
+    <string name="try_it_later">Try it again later</string>
 </resources>

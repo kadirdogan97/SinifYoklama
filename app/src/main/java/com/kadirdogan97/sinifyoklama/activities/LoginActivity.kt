@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CompoundButton
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,8 +22,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), AuthListener {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this,
@@ -31,10 +30,10 @@ class LoginActivity : AppCompatActivity(), AuthListener {
         val viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
         viewModel.authListener = this
-//        viewModel.username = "151307051"
-//        viewModel.password = "k1"
-        viewModel.username = "hyigit"
-        viewModel.password = "hy1"
+        viewModel.username = "151307051"
+        viewModel.password = "k1"
+//        viewModel.username = "hyigit"
+//        viewModel.password = "hy1"
         binding.switchCompat.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
                 if(p1){
@@ -45,7 +44,6 @@ class LoginActivity : AppCompatActivity(), AuthListener {
                     viewModel.isChecked=false
                 }
             }
-
         })
     }
 

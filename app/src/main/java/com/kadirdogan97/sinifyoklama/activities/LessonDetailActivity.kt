@@ -40,6 +40,7 @@ class LessonDetailActivity : AppCompatActivity(),
         var barkod = "BARKOD"
         var cBarkod = ""
         var barkodO: ObservableField<String> = ObservableField()
+        var cam = ""
     }
     private var viewmodel= LessonDetailsViewModel()
     private val discontinuityAdapter = DiscontinuityAdapter()
@@ -238,9 +239,15 @@ class LessonDetailActivity : AppCompatActivity(),
         }
         Log.d("TAG","barkod:"+ barkod+" ve "+ discontinuityService?.barkod)
         if(discontinuityService?.barkod.equals(barkod)){
-            toast("YOKLAMA BASARILI")
-            viewmodel.setDiscontinuity(myLesson.id.toString(), myLogin.id.toString())
+            toast("Yüz Tanıma Başlatıldı")
+            val intent2 = Intent(this, com.kadirdogan97.sinifyoklama.MainActivity::class.java)
+            startActivity(intent2)
             barkod=""
+        }
+        if(cam.equals("BASARILI")) {
+            viewmodel.setDiscontinuity(myLesson.id.toString(), myLogin.id.toString())
+            toast("YOKLAMA BAŞARILI")
+            cam=""
         }
 
     }

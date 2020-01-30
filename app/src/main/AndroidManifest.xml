@@ -7,8 +7,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.front" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +19,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".activities.ScanCodeActivity"></activity>
-        <activity android:name=".QRDialogFragment" />
+        <activity android:name=".activities.QRDialogFragment" />
         <activity android:name=".activities.LessonDetailActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
@@ -28,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
+        <activity android:name=".MainActivity"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.kadirdogan97.sinifyoklama.provider"
